@@ -1,0 +1,273 @@
+html,body
+{
+    width: 100%;
+    height: 100%;
+
+}
+
+body {
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    overflow-x: hidden;
+}
+
+.float-container-1 {
+    display: flex;
+    /* border: 3px solid #fff;
+    padding: 20px; */
+}
+
+.float-child-right {
+    width: 70%;
+    /* float: left;
+    padding: 20px;
+    border: 2px solid red; */
+}
+
+.float-child-left {
+    width: 23%;
+    /* float: left;
+    padding: 20px;
+    border: 2px solid red; */
+}
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-vertical-center h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    font-weight: 700;
+    color: #0099FF;
+}
+/* iframe {
+  /* text-align: center */
+  /* height: 100%; /* 100% of the viewport height */ */
+  /* background-color: #0099FF; */
+} */
+
+/* Custom Button Styles */
+
+.btn-xlarge {
+    padding: 18px 38px;
+    font-size: 80px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+.btn-dark {
+    border-radius: 0;
+    color: #fff;
+    background-color: #0099FF;
+}
+
+#submitBtn {
+    border-radius: 25px;
+    /* color: #fff;
+    background-color: #0099FF; */
+}
+
+#editBtn {
+    border-radius: 25px;
+}
+
+#deleteBtn {
+    border-radius: 25px;
+}
+
+#logInBtn {
+    border-radius: 25px;
+}
+
+#logOutBtn {
+    border-radius: 25px;
+}
+
+#signUpBtn {
+    border-radius: 25px;
+}
+
+#menuBtn {
+    border-radius: 25px;
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    color: #fff;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.btn-light {
+    border-radius: 0;
+    color: #333;
+    background-color: rgb(255,255,255);
+}
+
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+    color: #333;
+    background-color: rgba(255,255,255,0.8);
+}
+
+/* @Header */
+/* @top nav bar */
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  float: center;
+}
+.show {display: block;}
+#forms{
+  display: none;
+}
+@media only screen and (min-width: 960px) {
+#burger{
+  display: none;
+}
+#forms{
+  display: block;
+}
+}
+
+/* @bottom nav bar */
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+li {
+  float: left;
+}
+.nav-active{
+    transform: translateX(0%);
+    transition: transform 0.5s ease-in;
+}
+#navbarHeader {
+  box-shadow: none;
+}
+.navbar {
+  padding: 0;
+}
+.navbar .navbar-nav .nav-link:hover:not(.current) {
+  color: #007bff;
+}
+.navbar .navbar-nav .nav-link:not(.current) {
+  position: relative;
+}
+.navbar .navbar-nav .nav-link:not(.current)::after {
+  color: #007bff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #007bff;
+  color: transparent;
+  width: 0%;
+  content: '';
+  height: 2px;
+}
+.navbar .navbar-nav .nav-link:hover:not(.current)::after {
+  width: 100%;
+}
+
+/* createPost */
+#createPostContent::-webkit-input-placeholder {
+   padding-top: 0px;
+}
+iframe {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: auto !important;
+}
+
+/* Services */
+
+.services {
+    padding: 100px 0;
+}
+
+.service-item {
+    margin-bottom: 30px;
+}
+
+/* Callout */
+
+.img2 {
+    display: table;
+    width: 100%;
+    height: 250px;
+    color: #fff;
+    background: url(/img/CloudGateResized.jpg) no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.loginbtnpadding{
+
+	padding-top: 155px;
+	padding-left: 1210px;
+
+}
+
+.textformat {
+	text-align: left;
+
+}
+
+/* About */
+
+#about {
+    padding: 25px 0;
+}
+
+#aboutLanding {
+  padding: 10px;
+  padding-bottom: 30px;
+}
+
+.placement {
+    display: table;
+    width: 100%;
+    height: 400px;
+    color: #fff;
+}
+
+/* Content */
+
+#content {
+    padding: 10px 0 50px;
+}
+
+/* Footer */
+
+footer {
+
+    padding: 40px 0;
+}

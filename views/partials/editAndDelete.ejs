@@ -1,0 +1,184 @@
+<div class="float-container-1">
+  <div class="float-child-right">
+    <div class="container">
+      <h1 class="mb-1 mt-3 ml-2 pr-0"style="font-size: 25px;">Manage your posts and comments</h1>
+    </div>
+
+    <!-- posts -->
+    <input type="hidden" id="pst" value="<%= postsNum %>">
+    <% posts.forEach(post => { %>
+    <div class="container">
+      <div class="card mt-3 ml-2">
+        <div class="card-body">
+          <div class="card-subtitle text-muted mb-2" style="font-size: 12px;">
+            <%= post.createdAt.toLocaleDateString() %>
+          </div>
+          <h4 class="card-title mb-0"><%= post.title %></h4>
+          <div class="card-text text-muted mb-1" style="font-size: 12px;">
+            <% post.hashtags.forEach(hashtag => { %>
+              <span><a href="/hashtags/users/<%= hashtag %>">#<%= hashtag %></a></span>
+            <% }) %>
+          </div>
+
+          <div class="card-text mb-3"><%= post.content %></div>
+
+          <!-- NEED TO MODIFY THE CODE HERE, SHOULD NOT RUN THE SUBMITTED HTML CODE -->
+          <% var string = post.hiddenHashtags[0] %>
+          <div><%- include('./' + string + '.ejs', { post: post }); %></div>
+
+          <a id="editBtn" class="btn btn-outline-primary" data-toggle="modal" data-target="#editPost<%= post.id %>">Edit</a>
+          <form action="/posts/delete/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button id="deleteBtn" type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- content of edit page -->
+    <div class="modal fade" id="editPost<%= post.id %>">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <form action="/posts/edit/<%= post.id %>?_method=PUT" method="POST">
+          <div class="modal-header text-center">
+            <h3 class="modal-title w-100 dark-grey-text font-weight-bold">Edit</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="close">&times;</button>
+          </div>
+
+          <div class="form-label">
+            <label for="title" class="mt-4">Title</label>
+            <input required value="<%= post.title %>" type="text" name="title" id="title" class="form-control">
+          </div>
+          <div class="form-label">
+            <label for="content" class="mt-4">Content</label>
+            <textarea name="content" id="content" class="form-control"><%= post.content %></textarea>
+          </div>
+
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <a href="/protected-route" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <% }) %>
+
+    <!-- comments -->
+    <% comments.forEach(comment => { %>
+    <div class="container">
+      <div class="card mt-4 ml-2">
+        <div class="card-body">
+          <div class="card-subtitle text-muted mb-2">
+            Commented on '<%= comment.postTitle %>'
+          </div>
+          <div class="card-text mb-2"><%= comment.content %></div>
+          <a id="editBtn" class="btn btn-outline-primary" data-toggle="modal" data-target="#editComment<%= comment.id %>">Edit</a>
+          <form action="/comments/delete/<%= comment.id %>?_method=DELETE" method="POST" class="d-inline">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button id="deleteBtn" type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- content of edit page -->
+    <div class="modal fade" id="editComment<%= comment.id %>">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <form action="/comments/edit/<%= comment.id %>?_method=PUT" method="POST">
+          <div class="modal-header text-center">
+            <h3 class="modal-title w-100 dark-grey-text font-weight-bold">Edit</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="close">&times;</button>
+          </div>
+
+          <div class="form-label">
+            <label for="content" class="mt-4">Content</label>
+            <textarea name="content" id="content" class="form-control"><%= comment.content %></textarea>
+          </div>
+
+          <input type="hidden" name="originRoute" value="protected-route">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <a href="/protected-route" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+
+  <!-- messages -->
+  <div class="float-child-left">
+    <h1 class="mb-1 mt-4" style="font-size: 25px;">Messages</h1>
+    <input type="hidden" id="msg" value="<%= convNum %>">
+    <% var i=0 %>
+    <div class="d-flex flex-wrap">
+    <% conversations.forEach(conversation => { %>
+    <div class="p-1">
+    <form>
+      <button type="button" id="msgBtn<%= i %>" class="btn btn-primary hellobutton" style="border-radius: 25px;" data-toggle="modal" data-target="#messageBox<%= conversation.members[0] %><%= conversation.members[1] %>" value="<%= name %> <%= conversation.members[0] %> <%= conversation.members[1] %>">
+        <!-- here need to pass a username listed  -->
+        &#128490;
+        <% i++ %>
+      </button>
+    </form>
+    </div>
+    <!-- content of message box -->
+    <div class="modal fade" id="messageBox<%= conversation.members[0] %><%= conversation.members[1] %>">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <section class="chatbox">
+          	<section id="messages<%= conversation.members[0] %><%= conversation.members[1] %>" class="chat-window">
+          	</section>
+          	<form id="messageForm<%= conversation.members[0] %><%= conversation.members[1] %>" class="chat-input" onsubmit="return false;">
+          		<input id="message<%= conversation.members[0] %><%= conversation.members[1] %>" class="message_input" type="text" autocomplete="on" placeholder="" />
+          		<button class="send_message">
+                  <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,.38)" d="M17,12L12,17V14H8V10H12V7L17,12M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L5,8.09V15.91L12,19.85L19,15.91V8.09L12,4.15Z" /></svg>
+              </button>
+          	</form>
+          </section>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+    </div>
+
+    <!-- begins the hashtag box -->
+    <h1 class="mb-1 mt-4" style="font-size: 25px;">#tags</h1>
+    <div class="align-self-center d-flex flex-wrap">
+      <% hashtags.forEach(hashtag => { %>
+        <div class="align-self-center p-2">
+          <a href="/hashtags/users/<%= hashtag.hashtagName %>">#<%= hashtag.hashtagName %></a>
+        </div>
+      <% }) %>
+    </div>
+    <div class="pt-0 pl-0">
+    <button type="button" class="btn btn-sm btn-primary" style="border-radius: 25px;" data-toggle="modal" data-target="#addHashtag">
+      <i class="fa fa-plus"></i>
+    </button>
+    </div>
+    <!-- content of add hashtag -->
+    <div class="modal fade" id="addHashtag">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="/hashtags" method="POST">
+          <div class="modal-header text-center">
+            <h3 class="modal-title w-100 dark-grey-text font-weight-bold">Add #tag</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="close">&times;</button>
+          </div>
+          <div class="md-form">
+            <input type="text" class="md-textarea form-control" name="addHashtag" placeholder="#">
+          </div>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <a href="/protected-route" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

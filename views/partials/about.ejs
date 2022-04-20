@@ -1,0 +1,38 @@
+<!-- About -->
+<section id="aboutLanding">
+
+    <div class="container">
+      <h1 class="mb-1 mt-0">All</h1>
+    </div>
+
+    <input type="hidden" id="pst" value="<%= postsNum %>">
+    <% posts.forEach(post => { %>
+    <div class="container">
+      <div class="card mt-2">
+        <div class="card-body">
+          <div class="card-subtitle text-muted mb-2" style="font-size: 12px;">
+            <%= post.createdAt.toLocaleDateString() %>
+          </div>
+          <h4 class="card-title mb-0"><%= post.title %> <span class="text-muted" style="font-size: 15px;"> by <a href="#" data-toggle="modal" data-target="#loginPage"><%= post.authorName %></a></span></h4>
+          <div class="card-text text-muted mb-1" style="font-size: 12px;">
+            <% post.hashtags.forEach(hashtag => { %>
+              <span><a href="/hashtags/users/<%= hashtag %>">#<%= hashtag %></a></span>
+            <% }) %>
+          </div>
+
+          <div class="card-text mb-3"><%= post.content %></div>
+
+          <!-- NEED TO MODIFY THE CODE HERE, SHOULD NOT RUN THE SUBMITTED HTML CODE -->
+          <% var string = post.hiddenHashtags[0] %>
+          <%- include('./' + string + '.ejs', { post: post }); %>
+
+          <!-- might need forEach repetition if there are multiples of posts  -->
+          <% post.comments.forEach(comment => { %>
+          <div class="card-text mb-0"><%= comment.content %></div>
+          <div class="card-text mb-2" style="font-size: 12px;">by <a href="#" data-toggle="modal" data-target="#loginPage"><%= comment.authorName %></a></div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+</section>

@@ -1,0 +1,100 @@
+<div class="container">
+  <h1 class="mb-2 mt-2" style="font-size: 25px;">Popular #tags</h1>
+</div>
+<div class="container">
+  <div class="align-self-center d-flex flex-wrap">
+    <% allHashtags.forEach(hashtag => { %>
+      <div class="align-self-center p-2">
+        <a href="/hashtags/users/<%= hashtag.hashtagName %>">#<%= hashtag.hashtagName %></a>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="align-self-center  d-flex flex-row">
+    <h1 class="mb-2 mt-2 align-self-center" style="font-size: 25px;">Tagged Posts</h1>
+    <div class="form-group m-2 align-self-center">
+      <form action="/hashtags/selected" method="GET">
+        <select id="sortByHashtag" class="form-control" style="border-radius: 25px;" name="selectedHashtag">
+          <option value="" disabled selected>Sort by #tags</option>
+          <option type="submit" class='hashtag' value="All">All</option>
+          <% usersHashtags.forEach(hashtag => { %>
+            <option type="submit" class='hashtag' value="<%= hashtag.hashtagName %>">#<%= hashtag.hashtagName %></option>
+          <% }) %>
+        </select>
+      </form>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="pst" value="<%= postsNum %>">
+<% posts.forEach(post => { %>
+<div class="container">
+  <div class="card mt-1">
+    <div class="card-body">
+      <div class="card-text text-muted mb-2" style="font-size: 12px;">
+        Tagged with
+        <% post.hashtags.forEach(hashtag => { %>
+          <span><a href="/hashtags/users/<%= hashtag %>">#<%= hashtag %></a></span>
+        <% }) %>
+      </div>
+      <div class="card-subtitle text-muted mb-2" style="font-size: 12px;">
+        <%= post.createdAt.toLocaleDateString() %>
+      </div>
+      <h4 class="card-title mb-0"><%= post.title %> <span class="text-muted" style="font-size: 15px;"> by <a href="/hashtags/view/<%= post.authorName %>"><%= post.authorName %></a></span></h4>
+      <div class="card-text text-muted mb-1" style="font-size: 12px;">
+        <% post.hashtags.forEach(hashtag => { %>
+          <span><a href="/hashtags/users/<%= hashtag %>">#<%= hashtag %></a></span>
+        <% }) %>
+      </div>
+
+      <div class="card-text mb-3"><%= post.content %></div>
+
+      <!-- NEED TO MODIFY THE CODE HERE, SHOULD NOT RUN THE SUBMITTED HTML CODE -->
+      <% var string = post.hiddenHashtags[0] %>
+      <%- include('./' + string + '.ejs', { post: post }); %>
+
+      <!-- might need forEach repetition if there are multiples of posts  -->
+      <% post.comments.forEach(comment => { %>
+      <div class="card-text mb-0"><%= comment.content %></div>
+      <div class="card-text mb-2" style="font-size: 12px;">by <a href="/hashtags/view/<%= comment.authorName %>"><%= comment.authorName %></a></div>
+      <% }) %>
+      <form action="/comments" method="POST">
+        <div class="form-group">
+          <label for="content">Comment</label>
+          <input required value="<%= post.title %>" type="hidden" name="postTitle" id="postTitle" class="form-control">
+          <input required value="<%= post.id %>" type="hidden" name="parentPost" id="parentPost" class="form-control">
+          <textarea name="content" id="content" class="form-control"></textarea>
+        </div>
+        <input type="hidden" name="originRoute" value="hashtags">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button id="submitBtn" type="submit" class="btn btn-outline-primary">Submit</button>
+        <form>
+          <button type="button" class="btn btn-primary hellobutton" style="border-radius: 25px;" data-toggle="modal" data-target="#messageBox<%= post.id %>" value="<%= post.authorName %> <%= post.id %> <%= name %>">
+            Message&nbsp&nbsp
+          </button>
+        </form>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- content of message box -->
+<div class="modal fade" id="messageBox<%= post.id %>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <section class="chatbox">
+      	<section id="messages<%= post.id %>" class="chat-window">
+      	</section>
+      	<form id="messageForm<%= post.id %>" class="chat-input" onsubmit="return false;">
+      		<input id="message<%= post.id %>" class="message_input" type="text" autocomplete="on" placeholder="Type a message to <%= post.authorName %>" />
+      		<button class="send_message">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,.38)" d="M17,12L12,17V14H8V10H12V7L17,12M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L5,8.09V15.91L12,19.85L19,15.91V8.09L12,4.15Z" /></svg>
+          </button>
+      	</form>
+      </section>
+    </div>
+  </div>
+</div>
+<% }) %>

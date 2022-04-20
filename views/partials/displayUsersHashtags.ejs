@@ -1,0 +1,13 @@
+<div class="container">
+  <h1 class="mb-2 mt-2 pl-3" style="font-size: 20px;"><a href="#">#<%= hashtagRequested[0].hashtagName %></a></h1>
+</div>
+<div class="container">
+  <div class="d-flex flex-wrap">
+    <% hashtagRequested[0].users.forEach(user => { %>
+    <div class="pl-1 pr-3 pt-2 pb-2" style="display: table;">
+      <i class='fa fa-user-circle-o' style="font-size: 36px;"></i>
+      <span style="display: table-cell; vertical-align: middle;"><a href="/hashtags/view/<%= user %>">&nbsp&nbsp<%= user %></a></span>
+    </div>
+    <% }) %>
+  </div>
+</div>

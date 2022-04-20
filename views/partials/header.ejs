@@ -1,0 +1,117 @@
+<!-- Header -->
+<!-- <header id="top" class="img1">
+    <div class="text-vertical-center">
+        <h1>Freestyle Football for USA</h1>
+        <h3>Space for connecting freestylers in USA</h3>
+        <br>
+        <a href="#about" class="btn btn-dark btn-lg">Find Out More</a>
+        <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#loginPage">
+          Log In
+        </button>
+    </div>
+</header> -->
+
+<!-- content of login page -->
+<div class="modal fade" id="loginPage">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <form id="loginForm" action="/login" method="POST">
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold">Log In</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="close">&times;</button>
+      </div>
+
+      <div class="modal-body mx-4">
+        <div class="md-form">
+          <input type="text" class="form-control validate" name="uname" placeholder="Username">
+          <label data-error="wrong" data-success="right"></label>
+        </div>
+
+        <div class="md-form">
+          <input type="password" class="form-control validate" name="pwd" placeholder="Password">
+          <label data-error="wrong" data-success="right"></label>
+          <p class="font-small blue-text d-flex justify-content-center">Forgot<a href="#" class="blue-text ml-1">Password?</a></p>
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="text-center mb-3">
+          <button class="btn btn-primary btn-block z-depth-1a">Log In</button>
+        </div>
+        <p class="font-small dark-grey-text d-flex justify-content-center">or sign with:</p>
+
+        <div class="row my-3 justify-content-center">
+          <button type="button" class="btn btn-primary z-depth-1a"><i class="fab fa-facebook-f text-center"></i></button>
+          <button type="button" class="btn btn-purple z-depth-1a"><i class="fab fa-twitter text-center"></i></button>
+          <button type="button" class="btn btn-red z-depth-1a"><i class="fab fa-google-plus-g text-center"></i></button>
+        </div>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- ####################################################################### -->
+<nav id="navbarHeader" class="navbar navbar-default pb-0">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="font-size: px;" href="#" >FS4US</a>
+
+    <ul id="forms" class="nav navbar-nav navbar-right">
+      <form action="/login" method="POST">
+              <div class="align-self-center d-flex flex-row">
+                <div class="align-self-center p-2"><input type="text" class="form-control" placeholder="Username" name="uname"></div>
+                <div class="align-self-center p-2"><input type="password" class="form-control" placeholder="Password" name="pwd"></div>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div class="align-self-center p-2"><button id="logInBtn" type="submit" class="btn btn-outline-info" name="submit">Log In</button></div>
+                <div class="align-self-center p-2"><button id="signUpBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupPage">
+                  Sign Up
+                </button></div>
+              </div>
+       </form>
+      </ul>
+      <div id="burger" class="dropdown">
+        <a id="dropdownMenu" class="dropbtn"><i class="fa fa-bars"></i></a>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#" data-toggle="modal" data-target="#loginPage">Log in</a>
+          <a href="#" data-toggle="modal" data-target="#signupPage">Sign Up</a>
+        </div>
+      </div>
+  </div>
+</nav>
+<!-- ####################################################################### -->
+
+<nav id="navbarHeader" class="navbar navbar-expand-lg navbar-light bg-light p-0">
+  <ul class="navbar-nav d-flex flex-row">
+    <li class="nav-item pl-3">
+      <a id="menuBtn" class="nav-link btn-primary current" style="height: 100%; color:#fff" href="#" data-toggle="modal" data-target="#loginPage">Home</a>
+    </li>
+    <li class="nav-item pl-3">
+      <a id="menuBtn" class="nav-link" style="height: 100%;" href="#" data-toggle="modal" data-target="#loginPage">Dashboard</a>
+    </li>
+  </ul>
+</nav>
+<nav id="navbarHeader" class="navbar navbar-expand-lg navbar-light bg-light p-0">
+    <ul class="navbar-nav d-flex flex-row">
+      <div class="content">
+        <li class="nav-item">
+          <a id="menuBtn" class="nav-link btn-outline-primary current" style="height: 100%; text-align: center;" href="#" data-toggle="modal" data-target="#loginPage">All</a>
+        </li>
+        <li class="nav-item">
+          <a id="menuBtn" class="nav-link" style="height: 100%; text-align: center;" href="#" data-toggle="modal" data-target="#loginPage">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a id="menuBtn" class="nav-link" style="height: 100%; text-align: center;" href="#" data-toggle="modal" data-target="#loginPage">YouTube</a>
+        </li>
+        <li class="nav-item">
+          <a id="menuBtn" class="nav-link" style="height: 100%; text-align: center;" href="#" data-toggle="modal" data-target="#loginPage">Instagram</a>
+        </li>
+        <li class="nav-item">
+          <a id="menuBtn" class="nav-link" style="height: 100%; text-align: center;" href="#" data-toggle="modal" data-target="#loginPage">Twitter</a>
+        </li>
+        <li class="nav-item">
+          <a id="menuBtn" class="nav-link" style="height: 100%; text-align: center;" href="#" data-toggle="modal" data-target="#loginPage">Facebook</a>
+        </li>
+      </div>
+    </ul>
+</nav>

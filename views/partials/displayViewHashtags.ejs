@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="pl-3 pr-3 pt-2 pb-2" style="display: table;">
+    <i class='fa fa-user-circle-o' style="font-size: 36px; vertical-align: middle;"></i>
+    <span style="display: table-cell; vertical-align: middle;">&nbsp&nbsp<%= listed %>&nbsp&nbsp&nbsp</span>
+    <form>
+      <button id="parent" type="button" class="btn btn-primary" style="font-size: 15px; border-radius: 25px; padding: 10px;" data-toggle="modal" data-target="#messageBox<%= main %><%= listed %>" value="<%= main %> <%= main %> <%= listed %>">
+        &nbsp
+        &#128490;
+        &nbsp
+      </button>
+    </form>
+  </div>
+</div>
+<div class="container">
+  <div class="align-self-center d-flex flex-wrap">
+    <% hashtags.forEach(hashtag => { %>
+      <div class="align-self-center p-2">
+        <a href="/hashtags/users/<%= hashtag.hashtagName %>">#<%= hashtag.hashtagName %></a>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<!-- content of message box -->
+<div class="modal fade" id="messageBox<%= main %><%= listed %>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <section class="chatbox">
+        <section id="messages<%= main %><%= listed %>" class="chat-window">
+        </section>
+        <form id="messageForm<%= main %><%= listed %>" class="chat-input" onsubmit="return false;">
+          <input id="message<%= main %><%= listed %>" class="message_input" type="text" autocomplete="on" placeholder="Type a message to <%= listed %>" />
+          <button class="send_message">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,.38)" d="M17,12L12,17V14H8V10H12V7L17,12M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L5,8.09V15.91L12,19.85L19,15.91V8.09L12,4.15Z" /></svg>
+          </button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
