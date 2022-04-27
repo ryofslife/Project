@@ -29,7 +29,7 @@ router.put('/edit/:id', authObj.isAuthenticated, async (req, res, next) => {
 // Deleting a post
 router.delete('/delete/:id', authObj.isAuthenticated, async (req, res) => {
   await Comment.findByIdAndDelete(req.params.id)
-  res.redirect('/protected-route')
+  res.redirect('/protected-route/Comments')
 });
 
 function saveCommentAndRedirect(path) {

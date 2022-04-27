@@ -41,10 +41,10 @@ router.post('/', authObj.isAuthenticated, async (req, res) => {
             newHashtag.save((err) => {
               if (err){
                 console.log('error saving newHashtag')
-                return res.status(409).redirect('/protected-route');
+                return res.status(409).redirect('/protected-route/Hashtags');
               } else {
                 console.log('successful saving newHashtag')
-                return res.redirect('/protected-route')
+                return res.redirect('/protected-route/Hashtags')
               }
             });
           } else {
@@ -53,17 +53,17 @@ router.post('/', authObj.isAuthenticated, async (req, res) => {
             console.log(hashtagFound.users)
             if(hashtagExists(hashtagFound.users, req.user.username)) {
               console.log('user already has the hashtag')
-              return res.redirect('/protected-route')
+              return res.redirect('/protected-route/Hashtags')
             } else {
               console.log('user doesnt have the hashtag')
               hashtagFound.users.push(req.user.username)
               hashtagFound.save((err) => {
                 if (err){
                   console.log('error pushing the new user to the hashtagFound')
-                  return res.status(409).redirect('/protected-route');
+                  return res.status(409).redirect('/protected-route/Hashtags');
                 } else {
                   console.log('successful pushing the new user to the hashtagFound')
-                  return res.redirect('/protected-route')
+                  return res.redirect('/protected-route/Hashtags')
                 }
               });
             }

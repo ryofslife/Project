@@ -71,7 +71,7 @@ router.get('/login-failure', async (req, res, next) => {
 });
 
 // users need to be logged in in order to be authenticated to accesss the route
-router.get('/protected-route', async (req, res, next) => {
+router.get('/protected-route/:subDashboard', async (req, res, next) => {
 
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
@@ -87,7 +87,7 @@ router.get('/protected-route', async (req, res, next) => {
         // for listing hashTags
         const hashtags = await Hashtag.find({ users: { $in: [req.user.username] } });
 
-        res.render('dashboard.ejs', { name: req.user.username, posts: posts, postsNum: postsNum, comments: comments, conversations: conversations, convNum: convNum, hashtags: hashtags, csrfToken: req.csrfToken() })
+        res.render(`dashboard${req.params.subDashboard}.ejs`, { name: req.user.username, posts: posts, postsNum: postsNum, comments: comments, conversations: conversations, convNum: convNum, hashtags: hashtags, csrfToken: req.csrfToken() })
     } else {
         const posts = await Post.find().populate('comments').sort({ createdAt: 'desc' })
         const postsNum = await Post.find().countDocuments();

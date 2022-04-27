@@ -42,19 +42,19 @@ router.put('/edit/:id', authObj.isAuthenticated, async (req, res, next) => {
     next();
   } else {
     console.log('unauthorized access to editing posts')
-    return res.redirect('/protected-route')
+    return res.redirect('/protected-route/Posts')
   }
-}, savePostAndRedirect('/protected-route'));
+}, savePostAndRedirect('/protected-route/Posts'));
 
 // Deleting a post
 router.delete('/delete/:id', authObj.isAuthenticated, (req, res) => {
   Post.find( { _id: req.params.id }, async function (err, requestedPost) {
     if (requestedPost[0].authorName == req.user.username){
       await Post.findByIdAndDelete(req.params.id);
-      return res.redirect('/protected-route')
+      return res.redirect('/protected-route/Posts')
     } else {
       console.log('unauthorized access to deleting posts')
-      return res.redirect('/protected-route')
+      return res.redirect('/protected-route/Posts')
     }
   });
 });

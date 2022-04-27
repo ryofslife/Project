@@ -25,10 +25,16 @@
 <body class="bg-light">
 
   <!-- header -->
-  <%- include('./partials/headerDashboard.ejs'); %>
+  <%- include('./partials/headerDashboardMessages.ejs'); %>
 
-  <!-- editing and deleting posts -->
-  <%- include('./partials/editAndDelete.ejs'); %>
+  <!-- creating posts -->
+  <!-- include('./partials/createPosts.ejs'); -->
+
+  <!-- displaying posts -->
+  <%- include('./partials/editAndDeleteMessages.ejs'); %>
+
+  <!-- displaying message box -->
+  <!-- inside the displayPost.ejs -->
 
   <!-- Callout -->
   <!-- <section>
@@ -46,14 +52,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="/js/messageUser.js"></script>
   <script src="/js/messageBox.js"></script>
+  <!-- https://stackoverflow.com/questions/32571489/where-is-the-socket-io-js-file-located-at?lq=1 for scoket.io reference-->
   <script src="/js/socket.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/messageList.js"></script>
   <script src="/js/header.js"></script>
-  <!-- <script>
-    var pstNum = document.getElementById("pst").value;
-  </script> -->
-  <script async src="//www.instagram.com/embed.js"></script>
 
 </body>
 </html>
