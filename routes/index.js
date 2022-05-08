@@ -22,6 +22,9 @@ const Hashtag = connection.models.Hashtag;
 // for signing up users
 router.use('/signup', require('./signup.js'));
 
+// for serving landing pages
+router.use('/landing', require('./landing.js'));
+
 // routes for posts
 router.use('/posts', require('./posts.js'));
 
