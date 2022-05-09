@@ -3,6 +3,29 @@
 </div>
 
 <input type="hidden" id="pst" value="<%= postsNum %>">
+<% pinnedPosts.forEach(pinnedPost => { %>
+<div class="container">
+  <div class="card mt-2">
+    <div class="card-body">
+      <div class="card-subtitle text-muted mb-2" style="font-size: 12px;">
+        <%= pinnedPost.createdAt.toLocaleDateString() %>
+      </div>
+      <h4 class="card-title mb-0"><%= pinnedPost.title %> <span class="text-muted" style="font-size: 15px;"> by <a href="/hashtags/view/<%= pinnedPost.authorName %>"><%= pinnedPost.authorName %></a> &#128204;</span></h4>
+      <div class="card-text text-muted mb-1" style="font-size: 12px;">
+        <% pinnedPost.hashtags.forEach(hashtag => { %>
+          <span><a href="/hashtags/users/<%= hashtag %>">#<%= hashtag %></a></span>
+        <% }) %>
+      </div>
+
+      <div class="card-text mb-3"><%= pinnedPost.content %></div>
+
+      <!-- NEED TO MODIFY THE CODE HERE, SHOULD NOT RUN THE SUBMITTED HTML CODE -->
+      <% var string = pinnedPost.hiddenHashtags[0] %>
+      <%- include('./' + string + '.ejs', { pinnedPost: pinnedPost }); %>
+    </div>
+  </div>
+</div>
+<% }) %>
 <% posts.forEach(post => { %>
 <div class="container">
   <div class="card mt-1">

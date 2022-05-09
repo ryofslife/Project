@@ -61,16 +61,18 @@ router.get('/login-success', authObj.isLoggedIn, async (req, res, next) => {
     // for displaying post based on postTemplate/server.js, Post needs to be imported, function needs to be async
     // populate function is connected to 'ref' inside mongoose models
     const posts = await Post.find().populate('comments').sort({ createdAt: 'desc' })
+    const pinnedPosts = await Post.find({ hiddenHashtags: { $in: ['#@pinnedPosts'] } }).populate('comments').sort({ createdAt: 'desc' });
     const postsNum = await Post.find().countDocuments();
 
-    res.render('home.ejs', { name: req.user.username, post: new Post(), posts: posts, postsNum: postsNum, csrfToken: req.csrfToken() })
+    res.render('home.ejs', { name: req.user.username, post: new Post(), posts: posts, pinnedPosts: pinnedPosts, postsNum: postsNum, csrfToken: req.csrfToken() })
 });
 // routes for login failure
 router.get('/login-failure', async (req, res, next) => {
     const posts = await Post.find().populate('comments').sort({ createdAt: 'desc' })
+    const pinnedPosts = await Post.find({ hiddenHashtags: { $in: ['#@pinnedPosts'] } }).populate('comments').sort({ createdAt: 'desc' });
     const postsNum = await Post.find().countDocuments();
 
-    res.render('landing.ejs', { posts: posts, postsNum: postsNum, csrfToken: req.csrfToken() })
+    res.render('landing.ejs', { posts: posts, pinnedPosts: pinnedPosts, postsNum: postsNum, csrfToken: req.csrfToken() })
 });
 
 // users need to be logged in in order to be authenticated to accesss the route

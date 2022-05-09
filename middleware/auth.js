@@ -18,6 +18,7 @@ authObj.isLoggedIn = async (req, res, next) => {
         next();
     } else {
         const posts = await Post.find().populate('comments').sort({ createdAt: 'desc' })
+        const pinnedPosts = await Post.find({ hiddenHashtags: { $in: ['#@pinnedPosts'] } }).populate('comments').sort({ createdAt: 'desc' });
         const postsNum = await Post.find().countDocuments();
 
         // get visitor's location
@@ -42,7 +43,7 @@ authObj.isLoggedIn = async (req, res, next) => {
           await location.save()
         }
 
-        res.render('landing.ejs', { posts: posts, postsNum: postsNum, csrfToken: req.csrfToken() })
+        res.render('landing.ejs', { posts: posts, pinnedPosts: pinnedPosts, postsNum: postsNum, csrfToken: req.csrfToken() })
     }
 };
 
