@@ -17,7 +17,7 @@ authObj.isLoggedIn = async (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
-        const posts = await Post.find().populate('comments').sort({ createdAt: 'desc' })
+        const posts = await Post.find({ hiddenHashtags: { $in: ['#@Facebook', '#@Instagram', '#@Posts', '#@Youtube'] } }).populate('comments').sort({ createdAt: 'desc' })
         const pinnedPosts = await Post.find({ hiddenHashtags: { $in: ['#@pinnedPosts'] } }).populate('comments').sort({ createdAt: 'desc' });
         const postsNum = await Post.find().countDocuments();
 
