@@ -14,8 +14,13 @@ const Hashtag = connection.models.Hashtag;
 /* ---------- ROUTES ---------- */
 // Serve the posts.ejs
 router.get('/', authObj.isLoggedIn, async (req, res, next) => {
-    const posts = await Post.find({ hiddenHashtags: { $in: ['#@Posts'] } }).populate('comments').sort({ createdAt: 'desc' });
-    res.render('posts.ejs', { name: req.user.username, post: new Post(), posts: posts, csrfToken: req.csrfToken(), message: req.flash('message') })
+    if (req.user.username == 'Admin') {
+      const posts = await Post.find({ hiddenHashtags: { $in: ['#@pinnedPosts'] } }).populate('comments').sort({ createdAt: 'desc' });
+      res.render('adminPosts.ejs', { name: req.user.username, post: new Post(), posts: posts, csrfToken: req.csrfToken(), message: req.flash('message') })
+    } else {
+      const posts = await Post.find({ hiddenHashtags: { $in: ['#@Posts'] } }).populate('comments').sort({ createdAt: 'desc' });
+      res.render('posts.ejs', { name: req.user.username, post: new Post(), posts: posts, csrfToken: req.csrfToken(), message: req.flash('message') })
+    }
 });
 
 // Create a post.

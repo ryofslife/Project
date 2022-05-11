@@ -64,7 +64,11 @@ router.get('/login-success', authObj.isLoggedIn, async (req, res, next) => {
     const pinnedPosts = await Post.find({ hiddenHashtags: { $in: ['#@pinnedPosts'] } }).populate('comments').sort({ createdAt: 'desc' });
     const postsNum = await Post.find().countDocuments();
 
-    res.render('home.ejs', { name: req.user.username, post: new Post(), posts: posts, pinnedPosts: pinnedPosts, postsNum: postsNum, csrfToken: req.csrfToken() })
+    if (req.user.username == 'Admin') {
+      res.render('adminHome.ejs', { name: req.user.username, post: new Post(), posts: posts, pinnedPosts: pinnedPosts, postsNum: postsNum, csrfToken: req.csrfToken() })
+    } else {
+      res.render('home.ejs', { name: req.user.username, post: new Post(), posts: posts, pinnedPosts: pinnedPosts, postsNum: postsNum, csrfToken: req.csrfToken() })
+    }
 });
 // routes for login failure
 router.get('/login-failure', async (req, res, next) => {
@@ -92,7 +96,12 @@ router.get('/protected-route/:subDashboard', async (req, res, next) => {
         // for listing hashTags
         const hashtags = await Hashtag.find({ users: { $in: [req.user.username] } });
 
-        res.render(`dashboard${req.params.subDashboard}.ejs`, { name: req.user.username, posts: posts, postsNum: postsNum, comments: comments, conversations: conversations, convNum: convNum, hashtags: hashtags, csrfToken: req.csrfToken() })
+        if (req.user.username == 'Admin') {
+          res.render(`adminz${req.params.subDashboard}.ejs`, { name: req.user.username, posts: posts, postsNum: postsNum, comments: comments, conversations: conversations, convNum: convNum, hashtags: hashtags, csrfToken: req.csrfToken() })
+        } else {
+          res.render(`dashboard${req.params.subDashboard}.ejs`, { name: req.user.username, posts: posts, postsNum: postsNum, comments: comments, conversations: conversations, convNum: convNum, hashtags: hashtags, csrfToken: req.csrfToken() })
+        }
+
     } else {
         const posts = await Post.find().populate('comments').sort({ createdAt: 'desc' })
         const postsNum = await Post.find().countDocuments();

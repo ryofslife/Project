@@ -1,0 +1,46 @@
+<!-- Header -->
+<nav id="navbarHeader" class="navbar navbar-default pb-0">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="font-size: px;" href="#" >FS4US</a>
+
+    <ul id="forms" class="nav navbar-nav navbar-right">
+     <div class="align-self-center d-flex flex-row">
+        <div class="align-self-center p-2" style="color: #007bff">Logged in as <%= name %></div>
+        <div class="align-self-center p-2"><a id="logOutBtn" href="/logout" class="btn btn-primary btn-lg">Log Out</a></div>
+     </div>
+    </ul>
+    <div id="burger" class="dropdown">
+      <a id="dropdownMenu" class="dropbtn">&#9776;</a>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="/logout">
+        <%= name %>&nbsp&nbsp<i class='fa fa-sign-out'></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav id="navbarHeaderTop" class="navbar navbar-expand-lg navbar-light bg-light p-0">
+  <ul class="navbar-nav d-flex flex-row">
+    <li class="nav-item pl-3">
+      <a id="menuBtn" class="nav-link" style="height: 100%;" href="/login-success">Home</a>
+    </li>
+    <li class="nav-item pl-3">
+      <a id="menuBtn" class="nav-link btn-primary current" style="height: 100%; color:#fff" href="/protected-route/Posts">Dashboard</a>
+    </li>
+  </ul>
+</nav>
+<nav id="navbarHeaderBottom" class="navbar navbar-expand-lg navbar-light bg-light p-0">
+  <ul class="navbar-nav d-flex flex-row">
+    <div class="content">
+      <li class="nav-item">
+        <a id="menuBtn" class="nav-link btn-outline-primary current" style="height: 100%;" href="/protected-route/Posts">Posts</a>
+      </li>
+      <li class="nav-item">
+        <a id="menuBtn" class="nav-link" style="height: 100%;" href="/protected-route/Comments">Comments</a>
+      </li>
+      <li class="nav-item">
+        <a id="menuBtn" class="nav-link" style="height: 100%;" href="/protected-route/Messages">Messages</a>
+      </li>
+    </div>
+  </ul>
+</nav>
