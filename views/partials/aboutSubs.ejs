@@ -2,7 +2,12 @@
 <section id="aboutLanding">
 
     <div class="container">
+      <% var sub; %>
+      <% if (sub == 'Location') { %>
+      <h1 class="mb-1 mt-0">With #<%= location %></h1>
+      <%} else { %>
       <h1 class="mb-1 mt-0"><%= sub %></h1>
+      <% } %>
     </div>
 
     <input type="hidden" id="pst" value="<%= postsNum %>">

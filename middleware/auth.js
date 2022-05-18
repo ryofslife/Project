@@ -29,6 +29,7 @@ authObj.isLoggedIn = async (req, res, next) => {
 
         if (localIps.includes(ip)) {
           console.log('requesting from localIps')
+          where = 'localhost';
         } else {
           let location = new Location;
           const requestedLocation = await axios.get(`http://ip-api.com/json/${ip}`)
@@ -40,10 +41,11 @@ authObj.isLoggedIn = async (req, res, next) => {
           location.country = data.country;
           location.state = data.regionName;
           location.city = data.city;
+          where = data.region;
           await location.save()
         }
 
-        res.render('landing.ejs', { posts: posts, pinnedPosts: pinnedPosts, postsNum: postsNum, csrfToken: req.csrfToken() })
+        res.render('landing.ejs', { posts: posts, pinnedPosts: pinnedPosts, location: where, postsNum: postsNum, csrfToken: req.csrfToken() })
     }
 };
 

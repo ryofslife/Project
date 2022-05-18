@@ -13,10 +13,31 @@ const Hashtag = connection.models.Hashtag;
 /* ---------- ROUTES ---------- */
 // Serve the landingSubs.ejs
 router.get('/:sub', async (req, res, next) => {
-    const posts = await Post.find({ hiddenHashtags: { $in: [`#@${req.params.sub}`] } }).populate('comments').sort({ createdAt: 'desc' });
-    const postsNum = await Post.find().countDocuments();
 
-    res.render('landingSubs.ejs', { posts: posts, sub: req.params.sub, postsNum: postsNum, csrfToken: req.csrfToken() })
+  // get visitor's location
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  // const ip = "76.10.46.67"
+  const localIps = ['::1', '127.0.0.1', 'localhost']
+  // console.log(ip)
+
+  if (localIps.includes(ip)) {
+    console.log('requesting from localIps')
+    where = 'localhost';
+  } else {
+    const requestedLocation = await axios.get(`http://ip-api.com/json/${ip}`)
+    const { data } = requestedLocation
+    where = data.region;
+  }
+
+  if (req.params.sub == 'Location') {
+    const posts = await Post.find({ hashtags: { $in: [`${where}`] } }).populate('comments').sort({ createdAt: 'desc' });
+    const postsNum = await Post.find({ hashtags: { $in: [`${where}`] } }).countDocuments();
+    res.render('landingSubs.ejs', { posts: posts, sub: req.params.sub, location: where, postsNum: postsNum, csrfToken: req.csrfToken() })
+  } else {
+    const posts = await Post.find({ hiddenHashtags: { $in: [`#@${req.params.sub}`] } }).populate('comments').sort({ createdAt: 'desc' });
+    const postsNum = await Post.find({ hiddenHashtags: { $in: [`#@${req.params.sub}`] } }).countDocuments();
+    res.render('landingSubs.ejs', { posts: posts, sub: req.params.sub, location: where, postsNum: postsNum, csrfToken: req.csrfToken() })
+  }
 });
 
 module.exports = router;
