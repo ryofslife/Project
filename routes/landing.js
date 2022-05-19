@@ -16,8 +16,9 @@ const Hashtag = connection.models.Hashtag;
 router.get('/:sub', async (req, res, next) => {
 
   // get visitor's location
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+  // const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
   // const ip = "76.10.46.67"
+  const ip = req.ip
   const localIps = ['::1', '127.0.0.1', 'localhost']
   // console.log(ip)
 
