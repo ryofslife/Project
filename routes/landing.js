@@ -1,5 +1,6 @@
 /* ---------- MODULES ---------- */
 const express = require('express')
+const axios = require('axios');
 
 /* ---------- CLASSES & INSTANCES ---------- */
 const router = express.Router();
