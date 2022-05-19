@@ -24,6 +24,7 @@ require('dotenv').config();
 var PORT = process.env.PORT || 3000;
 
 /* ----- Express ----- */
+app.set('trust proxy', true)
 //for setting whatever filename to 'views' for the view engine
 //app.set('views', path.join(__dirname, '/yourViewDirectory'));
 app.set('view engine', 'ejs');
