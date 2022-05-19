@@ -22,14 +22,14 @@ authObj.isLoggedIn = async (req, res, next) => {
         const postsNum = await Post.find().countDocuments();
 
         // get visitor's location
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+        // const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
         // const ip = "76.10.46.67"
+        const ip = req.ip
         const localIps = ['::1', '127.0.0.1', 'localhost']
         console.log(ip)
         console.log(req.headers['x-forwarded-for'])
         console.log(req.socket.remoteAddress)
         console.log(req.ip)
-        console.log(req.connection.remoteAddress)
 
         if (localIps.includes(ip)) {
           console.log('requesting from localIps')
