@@ -12,7 +12,7 @@ const Comment = connection.models.Comment;
 const Hashtag = connection.models.Hashtag;
 
 /* ---------- ROUTES ---------- */
-// Serve the posts.ejs
+// Serve the youtubePosts.ejs
 router.get('/', authObj.isLoggedIn, async (req, res, next) => {
     // for displaying posts with the hiddenHashtag of @Youtube
     const posts = await Post.find({ hiddenHashtags: { $in: ['#@Youtube'] } }).populate('comments').sort({ createdAt: 'desc' });

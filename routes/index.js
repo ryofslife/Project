@@ -46,6 +46,9 @@ router.use('/instagramPosts', require('./instagramPosts.js'));
 // routes for facebookPosts
 router.use('/facebookPosts', require('./facebookPosts.js'));
 
+// routes for twitterPosts
+router.use('/twitterPosts', require('./twitterPosts.js'));
+
 // With the middleware, if the user is not authenticated, they will be redirected to the front landing page. Called automatically by opening landing.js if already logged in.
 // The default is set to Home>All once user is logged in
 router.get('/', authObj.isLoggedIn, (req, res) => {

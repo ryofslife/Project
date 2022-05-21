@@ -4,8 +4,13 @@
     <div class="container">
       <% var sub; %>
       <% if (sub == 'Location') { %>
-      <h1 class="mb-1 mt-0">With #<%= location %></h1>
-      <%} else { %>
+        <% var postsNum; %>
+        <% if (postsNum == 0) { %>
+        <h1 class="mb-1 mt-0">No posts yet with #<%= location %>.</h1>
+        <%} %>
+      <%} else if (sub == 'Twitter') { %>
+      <h1 class="mb-1 mt-0">Coming Soon...</h1>
+      <% } else { %>
       <h1 class="mb-1 mt-0"><%= sub %></h1>
       <% } %>
     </div>

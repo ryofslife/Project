@@ -25,6 +25,7 @@ router.get('/:sub', async (req, res, next) => {
   if (localIps.includes(ip)) {
     console.log('requesting from localIps')
     where = 'localhost';
+    // where = 'IL';
   } else {
     const requestedLocation = await axios.get(`http://ip-api.com/json/${ip}`)
     const { data } = requestedLocation
