@@ -17,9 +17,6 @@ const socket = require("socket.io");
 const app = express();
 
 /* ---------- CONSTANTS ---------- */
-// database connection
-// mongodb://127.0.0.1:27017/freestylers
-// mongodb+srv://ryo:ATIS22021@cluster0.q8j8t.mongodb.net/freestylers?retryWrites=true&w=majority
 require('dotenv').config();
 var PORT = process.env.PORT || 3000;
 
